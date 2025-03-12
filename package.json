@@ -2,7 +2,7 @@
   "name": "momentum-progress-tracking",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://vakkko.github.io/momentum-progress-tracking",
+  "homepage": "https://vakkko.github.io/Momentum/",
   "type": "module",
   "scripts": {
     "dev": "vite",
