@@ -1,0 +1,28 @@
+@import url("https://free.bboxtype.com/embedfonts/?family=FiraGO:400,500,600");
+
+:root {
+  --yellow: #f7bc30;
+  --orange: #fb5607;
+  --red: #ff006e;
+  --blue: #3a86ff;
+  --purple: #8338ec;
+  --pink: #ff66a8;
+  --black: #212529;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "FiraGO", sans-serif;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: "FiraGO", sans-serif;
+}
