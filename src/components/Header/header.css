@@ -25,3 +25,7 @@ header > div > button {
   align-items: center;
   justify-content: center;
 }
+
+.btn-create-task:hover {
+  background-color: var(--lightPurple);
+}

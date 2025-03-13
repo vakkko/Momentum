@@ -1,0 +1,141 @@
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(13, 15, 16, 0.15);
+}
+
+.modal-content {
+  position: absolute;
+  top: 380px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 913px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 40px 50px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+}
+
+.modal-content > h2 {
+  text-align: center;
+}
+
+.btn-close,
+.modal-button-group {
+  align-self: flex-end;
+}
+
+.modal-content > div label,
+.avatar-container > span {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--gray);
+}
+
+#name,
+#surname,
+#department {
+  width: 384px;
+  height: 42px;
+  border: 1px solid #ced4da;
+  outline: none;
+  font-size: 14px;
+  line-height: 100%;
+  padding-left: 5px;
+  margin-top: 5px;
+  border-radius: 6px;
+}
+
+#department option {
+  font-size: 14px;
+  line-height: 100%;
+  cursor: pointer;
+}
+
+.employ-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 45px;
+}
+
+.select-department {
+  grid-row-start: 3;
+}
+
+#avatar {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+#avatar-label {
+  cursor: pointer;
+  color: var(--gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.avatar-upload {
+  margin-top: 5px;
+}
+
+.avatar-container {
+  grid-column: span 2;
+}
+
+.avatar-container > div {
+  border: 1px dashed #ced4da;
+  width: 813px;
+  height: 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.img-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+}
+
+.avatar-img-container {
+  position: relative;
+}
+
+.delete-icon {
+  position: absolute;
+  bottom: 3px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.modal-button-group > button {
+  font-size: 16px;
+  line-height: 100%;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: 1px solid var(--purple);
+}
+
+.btn-add {
+  margin-left: 22px;
+  background-color: var(--purple);
+  color: white;
+}

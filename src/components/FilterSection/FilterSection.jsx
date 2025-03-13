@@ -4,16 +4,11 @@ import axios from "axios";
 import { useState } from "react";
 import FilterOptions from "./FilterOptions/FilterOptions";
 
-export default function FilterSection() {
-  const [departments, setDepartments] = useState([]);
+export default function FilterSection({ departments }) {
   const [showDepartments, setShowDepartments] = useState(false);
   const [priorities, setPriorities] = useState([]);
   const [showPriorities, setShowPriorities] = useState(false);
   useEffect(() => {
-    axios
-      .get("https://momentum.redberryinternship.ge/api/departments")
-      .then((res) => setDepartments(res.data))
-      .catch((err) => console.error(err));
     axios
       .get("https://momentum.redberryinternship.ge/api/priorities")
       .then((res) => setPriorities(res.data))
