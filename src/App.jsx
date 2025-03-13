@@ -1,8 +1,8 @@
-import "./App.css";
-import FilterSection from "./components/FilterSection/FilterSection";
 import Header from "./components/Header/Header";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Outlet } from "react-router";
+import { DepContext } from "./context/context";
 
 function App() {
   const [departments, setDepartments] = useState([]);
@@ -14,10 +14,10 @@ function App() {
   }, []);
 
   return (
-    <>
+    <DepContext.Provider value={departments}>
       <Header departments={departments} />
-      <FilterSection departments={departments} />
-    </>
+      <Outlet />
+    </DepContext.Provider>
   );
 }
 

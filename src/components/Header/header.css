@@ -21,6 +21,9 @@ header > div > button {
 .btn-create-task {
   background-color: var(--purple);
   color: white;
+}
+
+.btn-create-task > a {
   display: flex;
   align-items: center;
   justify-content: center;

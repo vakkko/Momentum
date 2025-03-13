@@ -8,21 +8,54 @@ export default function FilterSection({ departments }) {
   const [showDepartments, setShowDepartments] = useState(false);
   const [priorities, setPriorities] = useState([]);
   const [showPriorities, setShowPriorities] = useState(false);
+  const [employees, setEmployees] = useState([]);
+  const [showEmployees, setShowEmployess] = useState(false);
+
   useEffect(() => {
     axios
       .get("https://momentum.redberryinternship.ge/api/priorities")
       .then((res) => setPriorities(res.data))
       .catch((err) => console.error(err));
+
+    const fetchData = async () => {
+      try {
+        const token = "9e6c1b92-a397-450d-8338-35b007457477";
+
+        const response = await axios.get(
+          "https://momentum.redberryinternship.ge/api/employees",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setEmployees(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleDepClick = () => {
     setShowDepartments(!showDepartments);
     setShowPriorities(false);
+    setShowEmployess(false);
   };
 
   const handlePriorClick = () => {
     setShowDepartments(false);
+    setShowEmployess(false);
     setShowPriorities(!showPriorities);
+  };
+
+  const handleEmplClick = () => {
+    setShowEmployess(!showEmployees);
+    setShowDepartments(false);
+    setShowPriorities(false);
   };
 
   return (
@@ -50,13 +83,14 @@ export default function FilterSection({ departments }) {
           პრიორიტეტი
           <img src="./assets/down-arrow.svg" alt="down-arrow-icon" />
         </button>
-        <button>
+        <button onClick={handleEmplClick}>
           თანამშრომელი
           <img src="./assets/down-arrow.svg" alt="down-arrow-icon" />
         </button>
       </div>
       {showDepartments && <FilterOptions options={departments} />}
       {showPriorities && <FilterOptions options={priorities} />}
+      {showEmployees && <FilterOptions options={employees} />}
     </div>
   );
 }

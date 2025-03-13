@@ -10,6 +10,8 @@ export default function AddEmploy({ setShowModal, departments }) {
   const [surname, setSurname] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
 
+  const root = document.getElementById("root");
+
   const handleFileChange = (event) => {
     if (event.target.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
@@ -21,6 +23,7 @@ export default function AddEmploy({ setShowModal, departments }) {
 
   const closeModal = () => {
     setShowModal(false);
+    root.classList.remove("blur");
   };
 
   const handleNameChange = (e) => {
