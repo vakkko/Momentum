@@ -1,13 +1,19 @@
 import { useState } from "react";
 import "./addEmploy.css";
+import NameInput from "./NameInput/NameInput";
+import axios from "axios";
 
 export default function AddEmploy({ setShowModal, departments }) {
   const [preview, setPreview] = useState(null);
+  const [file, setFile] = useState(null);
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
 
   const handleFileChange = (event) => {
     if (event.target.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
-
+      setFile(selectedFile);
       const objectUrl = URL.createObjectURL(selectedFile);
       setPreview(objectUrl);
     }
@@ -15,6 +21,56 @@ export default function AddEmploy({ setShowModal, departments }) {
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const handleNameChange = (e) => {
+    const regex = /^[a-zA-Zა-ჰ]+$/;
+    const inputValue = e.target.value;
+
+    if (regex.test(inputValue) || inputValue === "") {
+      setName(inputValue);
+    }
+  };
+
+  const handleSurnameChange = (e) => {
+    setSurname(e.target.value);
+  };
+
+  const handleSelectedDep = (e) => {
+    setSelectedDepartment(e.target.value);
+  };
+  const handleSubmit = async () => {
+    if (
+      name.length >= 2 &&
+      name.length <= 255 &&
+      surname.length >= 2 &&
+      surname.length <= 255 &&
+      selectedDepartment &&
+      file
+    ) {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("surname", surname);
+      formData.append("avatar", file);
+      formData.append("department_id", selectedDepartment);
+
+      try {
+        await axios.post(
+          "https://momentum.redberryinternship.ge/api/employees",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer 9e6c1b92-a397-450d-8338-35b007457477`,
+            },
+          }
+        );
+        closeModal();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    return;
   };
 
   return (
@@ -26,16 +82,18 @@ export default function AddEmploy({ setShowModal, departments }) {
         </button>
         <h2>თანამშრომლის დამატება</h2>
         <div className="employ-inputs">
-          <div>
-            <label htmlFor="name">სახელი*</label>
-            <br />
-            <input type="text" id="name" />
-          </div>
-          <div>
-            <label htmlFor="surname">გვარი*</label>
-            <br />
-            <input type="text" id="surname" />
-          </div>
+          <NameInput
+            label={"სახელი*"}
+            id={"name"}
+            name={name}
+            handleNameChange={handleNameChange}
+          />
+          <NameInput
+            label={"გვარი*"}
+            id={"surname"}
+            name={surname}
+            handleNameChange={handleSurnameChange}
+          />
           <div className="avatar-container">
             <span>ავატარი*</span>
             <div>
@@ -80,10 +138,15 @@ export default function AddEmploy({ setShowModal, departments }) {
           <div className="select-department">
             <label>დეპარტამენტი*</label>
             <br />
-            <select id="department">
-              <option disabled selected hidden value=""></option>
+            <select
+              id="department"
+              value={selectedDepartment}
+              onChange={handleSelectedDep}
+              required
+            >
+              <option disabled hidden value=""></option>
               {departments.map((opt) => (
-                <option key={opt.id} value={opt.name}>
+                <option key={opt.id} value={opt.id}>
                   {opt.name}
                 </option>
               ))}
@@ -92,7 +155,9 @@ export default function AddEmploy({ setShowModal, departments }) {
         </div>
         <div className="modal-button-group">
           <button onClick={closeModal}>გაუქმება</button>
-          <button className="btn-add">დაამატე თანამშრომელი</button>
+          <button onClick={handleSubmit} className="btn-add">
+            დაამატე თანამშრომელი
+          </button>
         </div>
       </div>
     </div>

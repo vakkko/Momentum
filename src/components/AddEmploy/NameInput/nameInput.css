@@ -1,0 +1,28 @@
+.error-container {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.error-container p {
+  font-size: 10px;
+  line-height: 100%;
+  color: var(--gray);
+}
+
+.not-validate p {
+  color: #fa4d4d;
+}
+
+.not-validate svg path {
+  stroke: #fa4d4d;
+}
+
+.validate p {
+  color: #08a508;
+}
+
+.validate svg path {
+  stroke: #08a508;
+}
