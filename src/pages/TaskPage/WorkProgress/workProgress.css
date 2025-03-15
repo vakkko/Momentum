@@ -1,0 +1,80 @@
+.workProgress-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.workProgress-container select {
+  border: 1px solid #ced4da;
+  padding: 14px 18px;
+  width: 259px;
+  margin-top: 6px;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 14px;
+  line-height: 100%;
+}
+
+.workProgress-container option {
+  color: var(--gray);
+  font-size: 14px;
+  line-height: 100%;
+}
+
+.priorities-container > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  width: 259px;
+  background-color: white;
+  padding: 14px 18px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.priorities-container > div > div,
+.priorities-container ul li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.down-arrow {
+  justify-self: flex-end;
+}
+
+.priorities-container ul {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  gap: 14px;
+  padding: 14px 18px;
+  cursor: pointer;
+  border-left: 1px solid #ced4da;
+  border-right: 1px solid #ced4da;
+  border-bottom: 1px solid #ced4da;
+  position: absolute;
+  bottom: -23px;
+  width: 259px;
+}
+
+.priorities-container > div.open {
+  border-bottom: 1px solid white;
+}
+
+.priorities-container {
+  position: relative;
+}
+
+#date {
+  margin-top: 6px;
+  width: 318px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  padding: 12px 14px;
+  outline: none;
+}

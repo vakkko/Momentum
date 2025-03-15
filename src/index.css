@@ -35,6 +35,16 @@ a {
   outline: none;
 }
 
+select {
+  background: transparent;
+  outline: none;
+  font-family: "FiraGO", sans-serif;
+}
+
+ul {
+  list-style-type: none;
+}
+
 #root.blur {
   filter: blur(10px);
 }

@@ -1,0 +1,22 @@
+#department {
+  width: 384px;
+  height: 42px;
+  border: 1px solid #ced4da;
+  outline: none;
+  font-size: 14px;
+  line-height: 100%;
+  padding-left: 5px;
+  margin-top: 5px;
+  border-radius: 6px;
+}
+
+#department option {
+  font-size: 14px;
+  line-height: 100%;
+  cursor: pointer;
+}
+
+.taskpage-dep #department {
+  width: 550px;
+  background-color: white;
+}

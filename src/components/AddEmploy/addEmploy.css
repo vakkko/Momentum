@@ -48,26 +48,6 @@
   color: var(--gray);
 }
 
-#name,
-#surname,
-#department {
-  width: 384px;
-  height: 42px;
-  border: 1px solid #ced4da;
-  outline: none;
-  font-size: 14px;
-  line-height: 100%;
-  padding-left: 5px;
-  margin-top: 5px;
-  border-radius: 6px;
-}
-
-#department option {
-  font-size: 14px;
-  line-height: 100%;
-  cursor: pointer;
-}
-
 .employ-inputs {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -75,7 +55,7 @@
   gap: 45px;
 }
 
-.select-department {
+.employ-inputs > .select-department {
   grid-row-start: 3;
 }
 

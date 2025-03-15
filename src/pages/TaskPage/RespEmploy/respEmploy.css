@@ -1,0 +1,48 @@
+.employ-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.resp-empl-container {
+  border: 1px solid #dee2e6;
+  background-color: white;
+  border-radius: 6px;
+  height: 45px;
+  padding: 7px 14px;
+  margin-top: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+.resp-empl-container > div span {
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--gray);
+}
+
+.empl-list {
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 560px;
+  padding: 7px 14px;
+  position: absolute;
+  top: 42px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.empl-list > div,
+.empl-list > button,
+.chosen-empl {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.empl-list > button {
+  color: var(--purple);
+}

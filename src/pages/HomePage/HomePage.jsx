@@ -3,7 +3,8 @@ import FilterSection from "../../components/FilterSection/FilterSection";
 import { DepContext } from "../../context/context";
 
 export default function HomePage() {
-  const departments = useContext(DepContext);
+  const contextData = useContext(DepContext);
+  const departments = contextData.departments;
 
   return (
     <>

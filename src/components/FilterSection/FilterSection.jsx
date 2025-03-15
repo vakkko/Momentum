@@ -1,43 +1,23 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import "./filterSection.css";
 import axios from "axios";
 import { useState } from "react";
 import FilterOptions from "./FilterOptions/FilterOptions";
+import { DepContext } from "../../context/context";
 
 export default function FilterSection({ departments }) {
   const [showDepartments, setShowDepartments] = useState(false);
   const [priorities, setPriorities] = useState([]);
   const [showPriorities, setShowPriorities] = useState(false);
-  const [employees, setEmployees] = useState([]);
   const [showEmployees, setShowEmployess] = useState(false);
+  const contextData = useContext(DepContext);
+  const employees = contextData.employees;
 
   useEffect(() => {
     axios
       .get("https://momentum.redberryinternship.ge/api/priorities")
       .then((res) => setPriorities(res.data))
       .catch((err) => console.error(err));
-
-    const fetchData = async () => {
-      try {
-        const token = "9e6c1b92-a397-450d-8338-35b007457477";
-
-        const response = await axios.get(
-          "https://momentum.redberryinternship.ge/api/employees",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        setEmployees(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
   }, []);
 
   const handleDepClick = () => {
@@ -88,7 +68,7 @@ export default function FilterSection({ departments }) {
           <img src="./assets/down-arrow.svg" alt="down-arrow-icon" />
         </button>
       </div>
-      {showDepartments && <FilterOptions options={departments} />}
+      {showDepartments && <FilterOptions options={departments} dep={true} />}
       {showPriorities && <FilterOptions options={priorities} />}
       {showEmployees && <FilterOptions options={employees} />}
     </div>

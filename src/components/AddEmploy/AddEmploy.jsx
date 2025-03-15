@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./addEmploy.css";
 import NameInput from "./NameInput/NameInput";
 import axios from "axios";
+import Department from "./Department/Department";
 
 export default function AddEmploy({ setShowModal, departments }) {
   const [preview, setPreview] = useState(null);
@@ -138,23 +139,11 @@ export default function AddEmploy({ setShowModal, departments }) {
             </div>
           </div>
 
-          <div className="select-department">
-            <label>დეპარტამენტი*</label>
-            <br />
-            <select
-              id="department"
-              value={selectedDepartment}
-              onChange={handleSelectedDep}
-              required
-            >
-              <option disabled hidden value=""></option>
-              {departments.map((opt) => (
-                <option key={opt.id} value={opt.id}>
-                  {opt.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <Department
+            selectedDepartment={selectedDepartment}
+            handleSelectedDep={handleSelectedDep}
+            departments={departments}
+          />
         </div>
         <div className="modal-button-group">
           <button onClick={closeModal}>გაუქმება</button>

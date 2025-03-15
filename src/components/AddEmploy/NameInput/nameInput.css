@@ -1,3 +1,16 @@
+#name,
+#surname {
+  width: 384px;
+  height: 42px;
+  border: 1px solid #ced4da;
+  outline: none;
+  font-size: 14px;
+  line-height: 100%;
+  padding-left: 5px;
+  margin-top: 5px;
+  border-radius: 6px;
+}
+
 .error-container {
   margin-top: 8px;
   display: flex;
