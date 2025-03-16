@@ -66,6 +66,13 @@ export default function RespEmploy({ selectDepartment }) {
             </div>
           )}
         </div>
+        {selectDepartment && (
+          <div className="err-container">
+            <p className={`${respEmpl ? "validate" : "not-validate"}`}>
+              აირჩიეთ თანამშრომელი
+            </p>
+          </div>
+        )}
       </div>
       {showModal &&
         createPortal(

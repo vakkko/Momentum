@@ -37,7 +37,7 @@ function App() {
   }, []);
 
   return (
-    <DepContext.Provider value={{ departments, employees }}>
+    <DepContext.Provider value={{ departments, employees, setEmployees }}>
       <Header departments={departments} />
       <Outlet />
     </DepContext.Provider>

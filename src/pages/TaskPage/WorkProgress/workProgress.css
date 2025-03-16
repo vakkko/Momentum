@@ -20,7 +20,7 @@
   line-height: 100%;
 }
 
-.priorities-container > div {
+.priorities-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -34,8 +34,8 @@
   margin-top: 6px;
 }
 
-.priorities-container > div > div,
-.priorities-container ul li {
+.priorities-container > div,
+.workProgress-container ul li {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -45,7 +45,7 @@
   justify-self: flex-end;
 }
 
-.priorities-container ul {
+.workProgress-container ul {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -58,15 +58,15 @@
   border-right: 1px solid #ced4da;
   border-bottom: 1px solid #ced4da;
   position: absolute;
-  bottom: -23px;
+  bottom: -53px;
   width: 259px;
 }
 
-.priorities-container > div.open {
+.priorities-container.open {
   border-bottom: 1px solid white;
 }
 
-.priorities-container {
+.workProgress-container > div {
   position: relative;
 }
 

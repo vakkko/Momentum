@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./addEmploy.css";
 import NameInput from "./NameInput/NameInput";
 import axios from "axios";
 import Department from "./Department/Department";
+import { DepContext } from "../../context/context";
 
 export default function AddEmploy({ setShowModal, departments }) {
   const [preview, setPreview] = useState(null);
@@ -10,6 +11,8 @@ export default function AddEmploy({ setShowModal, departments }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const contextData = useContext(DepContext);
+  const setEmployees = contextData.setEmployees;
 
   const root = document.getElementById("root");
 
@@ -59,7 +62,7 @@ export default function AddEmploy({ setShowModal, departments }) {
       formData.append("department_id", selectedDepartment);
 
       try {
-        await axios.post(
+        const response = await axios.post(
           "https://momentum.redberryinternship.ge/api/employees",
           formData,
           {
@@ -69,12 +72,22 @@ export default function AddEmploy({ setShowModal, departments }) {
             },
           }
         );
-        closeModal();
+        if (response.status === 201) {
+          const updatedResponse = await axios.get(
+            "https://momentum.redberryinternship.ge/api/employees",
+            {
+              headers: {
+                Authorization: `Bearer 9e6c1b92-a397-450d-8338-35b007457477`,
+              },
+            }
+          );
+          setEmployees(updatedResponse.data);
+          closeModal();
+        }
       } catch (error) {
         console.error(error);
       }
     }
-    return;
   };
 
   return (

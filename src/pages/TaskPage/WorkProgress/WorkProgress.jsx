@@ -9,19 +9,29 @@ export default function WorkProgress({ average, priorities, statuses }) {
     return String(num).padStart(2, "0");
   }
 
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = padZero(date.getMonth() + 1);
-  const day = padZero(date.getDate());
+  const getDate = new Date();
+  const year = getDate.getFullYear();
+  const month = padZero(getDate.getMonth() + 1);
+  const day = padZero(getDate.getDate());
 
-  const tomorrow = `${year}-${month}-${padZero(date.getDate() + 1)}`;
+  const tomorrow = `${year}-${month}-${padZero(getDate.getDate() + 1)}`;
   const today = `${year}-${month}-${day}`;
+
+  const [date, setDate] = useState(tomorrow);
+
+  const handleDateChange = (e) => {
+    setDate(e.target.value);
+  };
 
   useEffect(() => {
     if (average) {
       setSelected(average);
     }
   }, [average]);
+
+  useEffect(() => {
+    setDate(tomorrow);
+  }, [tomorrow]);
 
   return (
     <>
@@ -30,11 +40,10 @@ export default function WorkProgress({ average, priorities, statuses }) {
           onClick={() => {
             setIsOpen(!isOpen);
           }}
-          className="priorities-container"
         >
           <span>პრიორიტეტი*</span>
           <br />
-          <div className={`${isOpen ? "open" : ""}`}>
+          <div className={`priorities-container ${isOpen ? "open" : ""}`}>
             <div>
               <img
                 className="prior-icon"
@@ -49,6 +58,7 @@ export default function WorkProgress({ average, priorities, statuses }) {
               alt="down-arrow"
             />
           </div>
+
           {isOpen && (
             <ul>
               {priorities.map((priority) => (
@@ -60,6 +70,7 @@ export default function WorkProgress({ average, priorities, statuses }) {
             </ul>
           )}
         </div>
+
         <div>
           <label>სტატუსი *</label> <br />
           <select>
@@ -77,9 +88,10 @@ export default function WorkProgress({ average, priorities, statuses }) {
           <input
             id="date"
             type="date"
-            defaultValue={tomorrow}
             min={today}
+            value={date}
             required
+            onChange={handleDateChange}
           />
         </div>
       </div>

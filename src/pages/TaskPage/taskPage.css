@@ -62,3 +62,25 @@ label,
   grid-column-start: 2;
   justify-self: flex-end;
 }
+
+.err-container {
+  display: flex;
+  align-items: flex-start;
+  font-size: 10px;
+  line-height: 100%;
+  color: #6c757d;
+  margin-top: 8px;
+  gap: 4px;
+}
+
+.err-container.validate-dep > p {
+  color: #08a508;
+}
+
+.validate-dep svg path {
+  stroke: #08a508;
+}
+
+.desciption-err {
+  flex-direction: column;
+}
