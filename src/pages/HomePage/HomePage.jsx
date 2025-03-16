@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import FilterSection from "../../components/FilterSection/FilterSection";
+import FilterSection from "./FilterSection/FilterSection";
 import { DepContext } from "../../context/context";
 import axios from "axios";
 

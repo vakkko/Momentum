@@ -3,7 +3,7 @@ import "./filterSection.css";
 import axios from "axios";
 import { useState } from "react";
 import FilterOptions from "./FilterOptions/FilterOptions";
-import { DepContext } from "../../context/context";
+import { DepContext } from "../../../context/context";
 
 export default function FilterSection({ departments }) {
   const [showDepartments, setShowDepartments] = useState(false);

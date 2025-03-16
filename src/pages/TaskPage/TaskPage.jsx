@@ -8,12 +8,14 @@ import RespEmploy from "./RespEmploy/RespEmploy";
 import ErrorMsgs from "../../components/AddEmploy/NameInput/ErrorMsgs/ErrorMsgs";
 
 export default function TaskPage() {
-  const [selectDepartment, setSelectedDepartment] = useState("");
+  const [selectDepartment, setSelectedDepartment] = useState(
+    sessionStorage.getItem("selectDepartment") || ""
+  );
   const [priorities, setPriorities] = useState([]);
   const [average, setAverage] = useState({});
   const [statuses, setStatuses] = useState([]);
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
+  const [title, setTitle] = useState(sessionStorage.getItem("title") || "");
+  const [text, setText] = useState(sessionStorage.getItem("text") || "");
   const [status, setStatus] = useState();
   const [respEmpl, setRespEmpl] = useState(null);
   const [selected, setSelected] = useState(average);
@@ -71,7 +73,7 @@ export default function TaskPage() {
   const tomorrow = `${year}-${month}-${padZero(getDate.getDate() + 1)}`;
   const today = `${year}-${month}-${day}`;
 
-  const [date, setDate] = useState(tomorrow);
+  const [date, setDate] = useState(sessionStorage.getItem("date") || tomorrow);
 
   useEffect(() => {
     setDate(tomorrow);
@@ -120,6 +122,20 @@ export default function TaskPage() {
       }
     }
   };
+
+  useEffect(() => {
+    sessionStorage.setItem("title", title);
+    sessionStorage.setItem("text", text);
+    sessionStorage.setItem("selectDepartment", selectDepartment);
+    sessionStorage.setItem("date", date);
+  }, [title, text, selectDepartment, date]);
+
+  useEffect(() => {
+    setTitle(sessionStorage.getItem("title"));
+    setText(sessionStorage.getItem("text"));
+    setSelectedDepartment(sessionStorage.getItem("selectDepartment"));
+    setDate(sessionStorage.getItem("date"));
+  }, []);
 
   return (
     <div className="task-container">
