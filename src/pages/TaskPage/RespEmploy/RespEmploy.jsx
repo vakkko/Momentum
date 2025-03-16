@@ -4,12 +4,14 @@ import { DepContext } from "../../../context/context";
 import { createPortal } from "react-dom";
 import AddEmploy from "../../../components/AddEmploy/AddEmploy";
 
-export default function RespEmploy({ selectDepartment }) {
+export default function RespEmploy({
+  selectDepartment,
+  respEmpl,
+  setRespEmpl,
+}) {
   const [filteredEmploy, setFilteredEmploy] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [respEmpl, setRespEmpl] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
   const contextData = useContext(DepContext);
   const employees = contextData.employees;
   const departments = contextData.departments;

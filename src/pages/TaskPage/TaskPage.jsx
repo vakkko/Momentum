@@ -14,9 +14,13 @@ export default function TaskPage() {
   const [statuses, setStatuses] = useState([]);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [status, setStatus] = useState();
+  const [respEmpl, setRespEmpl] = useState(null);
+  const [selected, setSelected] = useState(average);
 
   const contextData = useContext(DepContext);
   const departments = contextData.departments;
+  const validText = text.trim().split(/\s+/);
 
   const handleSelectedDep = (e) => {
     setSelectedDepartment(e.target.value);
@@ -49,7 +53,73 @@ export default function TaskPage() {
     }
   }, [priorities]);
 
-  const validText = text.trim().split(/\s+/);
+  function padZero(num) {
+    return String(num).padStart(2, "0");
+  }
+
+  useEffect(() => {
+    if (statuses.length > 0) {
+      setStatus(statuses[0].id);
+    }
+  }, [statuses]);
+
+  const getDate = new Date();
+  const year = getDate.getFullYear();
+  const month = padZero(getDate.getMonth() + 1);
+  const day = padZero(getDate.getDate());
+
+  const tomorrow = `${year}-${month}-${padZero(getDate.getDate() + 1)}`;
+  const today = `${year}-${month}-${day}`;
+
+  const [date, setDate] = useState(tomorrow);
+
+  useEffect(() => {
+    setDate(tomorrow);
+  }, [tomorrow]);
+
+  const handleSubmit = async () => {
+    if (
+      title.length > 3 &&
+      title.length < 255 &&
+      (validText.length === 0 ||
+        (validText.length >= 4 && validText.length < 255)) &&
+      date &&
+      status
+    ) {
+      const data = {
+        name: title,
+        description: text,
+        due_date: date,
+        status_id: Number(status),
+        employee_id: Number(respEmpl.id),
+        priority_id: Number(selected.id),
+      };
+
+      try {
+        const response = await axios.post(
+          "https://momentum.redberryinternship.ge/api/tasks",
+          data,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer 9e6c1b92-a397-450d-8338-35b007457477`,
+            },
+          }
+        );
+        if (response.status === 201) {
+          setText("");
+          setTitle("");
+          setDate(tomorrow);
+          setStatus(0);
+          setSelectedDepartment("");
+          setSelected(average);
+          setRespEmpl(null);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   return (
     <div className="task-container">
@@ -134,13 +204,26 @@ export default function TaskPage() {
             </p>
           </div>
         </div>
-        <RespEmploy selectDepartment={selectDepartment} />
+        <RespEmploy
+          respEmpl={respEmpl}
+          setRespEmpl={setRespEmpl}
+          selectDepartment={selectDepartment}
+        />
         <WorkProgress
           average={average}
           statuses={statuses}
           priorities={priorities}
+          date={date}
+          today={today}
+          setDate={setDate}
+          status={status}
+          setStatus={setStatus}
+          selected={selected}
+          setSelected={setSelected}
         />
-        <button className="btn-create-task">დავალების შექმნა</button>
+        <button onClick={handleSubmit} className="btn-create-task">
+          დავალების შექმნა
+        </button>
       </div>
     </div>
   );

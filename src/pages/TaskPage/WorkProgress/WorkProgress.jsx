@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
 import "./workProgress.css";
 
-export default function WorkProgress({ average, priorities, statuses }) {
-  const [selected, setSelected] = useState(average);
+export default function WorkProgress({
+  average,
+  priorities,
+  statuses,
+  date,
+  today,
+  setDate,
+  status,
+  setStatus,
+  selected,
+  setSelected,
+}) {
   const [isOpen, setIsOpen] = useState(false);
-
-  function padZero(num) {
-    return String(num).padStart(2, "0");
-  }
-
-  const getDate = new Date();
-  const year = getDate.getFullYear();
-  const month = padZero(getDate.getMonth() + 1);
-  const day = padZero(getDate.getDate());
-
-  const tomorrow = `${year}-${month}-${padZero(getDate.getDate() + 1)}`;
-  const today = `${year}-${month}-${day}`;
-
-  const [date, setDate] = useState(tomorrow);
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
@@ -27,11 +23,11 @@ export default function WorkProgress({ average, priorities, statuses }) {
     if (average) {
       setSelected(average);
     }
-  }, [average]);
+  }, [average, setSelected]);
 
-  useEffect(() => {
-    setDate(tomorrow);
-  }, [tomorrow]);
+  const handleStatusChange = (event) => {
+    setStatus(event.target.value);
+  };
 
   return (
     <>
@@ -73,9 +69,9 @@ export default function WorkProgress({ average, priorities, statuses }) {
 
         <div>
           <label>სტატუსი *</label> <br />
-          <select>
+          <select value={status} onChange={handleStatusChange}>
             {statuses.map((status) => (
-              <option key={status.id} id={status.id} value={status.name}>
+              <option key={status.id} id={status.id} value={Number(status.id)}>
                 {status.name}
               </option>
             ))}

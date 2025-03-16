@@ -16,7 +16,9 @@ export default function Header({ departments }) {
   return (
     <>
       <header>
-        <img src="./assets/logo.svg" alt="logo" />
+        <Link to={"/"}>
+          <img src="./assets/logo.svg" alt="logo" />
+        </Link>
         <div>
           <button onClick={handleAddEmployClick}>თანამშრომლის შექმნა</button>
           <button className="btn-create-task">

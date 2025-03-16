@@ -46,6 +46,7 @@ export default function AddEmploy({ setShowModal, departments }) {
   const handleSelectedDep = (e) => {
     setSelectedDepartment(e.target.value);
   };
+
   const handleSubmit = async () => {
     if (
       name.length >= 2 &&
