@@ -5,11 +5,18 @@ import { useState } from "react";
 import FilterOptions from "./FilterOptions/FilterOptions";
 import { DepContext } from "../../../context/context";
 
-export default function FilterSection({ departments }) {
-  const [showDepartments, setShowDepartments] = useState(false);
+export default function FilterSection({
+  departments,
+  showDepartments,
+  setShowDepartments,
+  showPriorities,
+  setShowPriorities,
+  showEmployees,
+  setShowEmployess,
+  selectedOptions,
+  setSelectedOptions,
+}) {
   const [priorities, setPriorities] = useState([]);
-  const [showPriorities, setShowPriorities] = useState(false);
-  const [showEmployees, setShowEmployess] = useState(false);
   const contextData = useContext(DepContext);
   const employees = contextData.employees;
 
@@ -68,9 +75,28 @@ export default function FilterSection({ departments }) {
           <img src="./assets/down-arrow.svg" alt="down-arrow-icon" />
         </button>
       </div>
-      {showDepartments && <FilterOptions options={departments} dep={true} />}
-      {showPriorities && <FilterOptions options={priorities} />}
-      {showEmployees && <FilterOptions options={employees} />}
+      {showDepartments && (
+        <FilterOptions
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
+          options={departments}
+          dep={true}
+        />
+      )}
+      {showPriorities && (
+        <FilterOptions
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
+          options={priorities}
+        />
+      )}
+      {showEmployees && (
+        <FilterOptions
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
+          options={employees}
+        />
+      )}
     </div>
   );
 }

@@ -116,6 +116,8 @@ export default function TaskPage() {
           setSelectedDepartment("");
           setSelected(average);
           setRespEmpl(null);
+
+          sessionStorage.clear();
         }
       } catch (error) {
         console.error(error);

@@ -23,7 +23,7 @@ header > div > button {
   color: white;
 }
 
-.btn-create-task > a {
+.btn-create-task {
   display: flex;
   align-items: center;
   justify-content: center;

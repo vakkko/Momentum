@@ -1,0 +1,5 @@
+.task-columns {
+  margin: 24px 120px 0;
+  display: flex;
+  justify-content: space-between;
+}

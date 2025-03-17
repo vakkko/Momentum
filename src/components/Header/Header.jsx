@@ -21,12 +21,12 @@ export default function Header({ departments }) {
         </Link>
         <div>
           <button onClick={handleAddEmployClick}>თანამშრომლის შექმნა</button>
-          <button className="btn-create-task">
-            <Link to={"add-task"}>
+          <Link to={"add-task"}>
+            <button className="btn-create-task">
               <img src="./assets/add.svg" alt="add icon" />
               შექმენი ახალი დავალება
-            </Link>
-          </button>
+            </button>
+          </Link>
         </div>
       </header>
       {showModal &&
