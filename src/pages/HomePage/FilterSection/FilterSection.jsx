@@ -14,7 +14,8 @@ export default function FilterSection({
   showEmployees,
   setShowEmployess,
   selectedOptions,
-  setSelectedOptions,
+  handleFilter,
+  handleChange,
 }) {
   const [priorities, setPriorities] = useState([]);
   const contextData = useContext(DepContext);
@@ -77,24 +78,27 @@ export default function FilterSection({
       </div>
       {showDepartments && (
         <FilterOptions
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
+          selectedOptions={selectedOptions.dep}
+          handleChange={(id) => handleChange("dep", id)}
           options={departments}
           dep={true}
+          handleFilter={handleFilter}
         />
       )}
       {showPriorities && (
         <FilterOptions
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
+          selectedOptions={selectedOptions.level}
+          handleChange={(id) => handleChange("level", id)}
           options={priorities}
+          handleFilter={handleFilter}
         />
       )}
       {showEmployees && (
         <FilterOptions
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
+          selectedOptions={selectedOptions.empl}
+          handleChange={(id) => handleChange("empl", id)}
           options={employees}
+          handleFilter={handleFilter}
         />
       )}
     </div>
