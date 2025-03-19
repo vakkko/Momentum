@@ -1,0 +1,47 @@
+.all-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 57px;
+  margin-top: 40px;
+}
+
+.comment {
+  display: flex;
+  gap: 12px;
+}
+
+.comment > img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.comment-content > span {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 100%;
+  color: var(--gray);
+}
+
+.comment-content > p {
+  font-size: 16px;
+  line-height: 100%;
+}
+
+.comment-content > button {
+  color: var(--purple);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nested-comment {
+  margin-left: 51px;
+}

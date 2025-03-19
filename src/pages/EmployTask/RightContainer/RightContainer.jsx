@@ -2,9 +2,12 @@ import "./rightContainer.css";
 import CommentBlock from "./CommentBlock/CommentBlock";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Comment from "./Comment/Comment";
 
 export default function RightContainer({ taskId }) {
   const [allComment, setAllComment] = useState([]);
+  const [render, setRender] = useState();
+  const [showReply, setShowReply] = useState(false);
 
   useEffect(() => {
     const fetchComponent = async () => {
@@ -27,12 +30,36 @@ export default function RightContainer({ taskId }) {
       }
     };
     fetchComponent();
-  }, [taskId]);
+  }, [taskId, render]);
+
+  const subCommentAmount = allComment.reduce((total, comment) => {
+    return total + comment.sub_comments.length;
+  }, 0);
 
   return (
     <div className="comments-container">
-      <CommentBlock taskId={taskId} />
-      <div></div>
+      <CommentBlock
+        setShowReply={setShowReply}
+        parentId={false}
+        setRender={setRender}
+        taskId={taskId}
+      />
+      {allComment && (
+        <div className="comments-list">
+          <div className="comment-heading">
+            <h2>კომენტარები</h2>
+            <div>{allComment.length + subCommentAmount}</div>
+          </div>
+          <Comment
+            taskId={taskId}
+            setRender={setRender}
+            allComment={allComment}
+            reply
+            showReply={showReply}
+            setShowReply={setShowReply}
+          />
+        </div>
+      )}
     </div>
   );
 }

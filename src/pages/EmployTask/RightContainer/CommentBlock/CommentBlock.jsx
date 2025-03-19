@@ -2,7 +2,12 @@ import { useState } from "react";
 import "./commentBlock.css";
 import axios from "axios";
 
-export default function CommentBlock({ taskId }) {
+export default function CommentBlock({
+  taskId,
+  setRender,
+  parentId,
+  setShowReply,
+}) {
   const [comment, setComment] = useState("");
 
   const handleChange = (e) => {
@@ -11,10 +16,16 @@ export default function CommentBlock({ taskId }) {
 
   const handleClick = async () => {
     if (!comment.trim()) return;
+
+    const payload = {
+      text: comment,
+      ...(parentId && { parent_id: parentId }),
+    };
+
     try {
       await axios.post(
         `https://momentum.redberryinternship.ge/api/tasks/${taskId}/comments`,
-        { text: comment },
+        payload,
         {
           headers: {
             "Content-Type": "application/json",
@@ -23,6 +34,8 @@ export default function CommentBlock({ taskId }) {
         }
       );
       setComment("");
+      setRender((prev) => prev + 1);
+      setShowReply(false);
     } catch (error) {
       console.error(error);
     }

@@ -1,6 +1,33 @@
+.comments-list {
+  margin-top: 66px;
+}
+
 .comments-container {
   width: 741px;
-  padding: 40px 45px 52px 45px;
-  background-color: #ddd2ff;
+  padding: 0 45px 52px 45px;
+  background-color: #faf7fe;
   border-radius: 10px;
+}
+
+.comment-heading {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.comment-heading > h2 {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+}
+
+.comment-heading > div {
+  color: white;
+  background-color: var(--purple);
+  width: 30px;
+  height: 22px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

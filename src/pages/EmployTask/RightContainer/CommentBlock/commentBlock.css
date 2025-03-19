@@ -1,5 +1,6 @@
 .comment-textarea {
   position: relative;
+  margin-top: 40px;
 }
 
 .comment-textarea > textarea {
