@@ -1,0 +1,12 @@
+.employ-taskpage {
+  margin: 40px 120px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.employ-taskpage > .left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 63px;
+  width: 715px;
+}

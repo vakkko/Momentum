@@ -47,6 +47,12 @@ ul {
   list-style-type: none;
 }
 
+textarea {
+  outline: none;
+  resize: none;
+  font-family: "FiraGO", sans-serif;
+}
+
 #root.blur {
   filter: blur(10px);
 }

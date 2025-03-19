@@ -1,0 +1,61 @@
+.priority-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  width: 86px;
+}
+
+.priority-box > span {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 150%;
+}
+
+.low-priority {
+  border: 1px solid var(--green);
+}
+
+.low-priority > span {
+  color: var(--green);
+}
+
+.medium-priority {
+  border: 1px solid var(--yellow);
+}
+
+.medium-priority > span {
+  color: var(--yellow);
+}
+
+.high-priority {
+  border: 1px solid var(--redOrange);
+}
+
+.high-priority > span {
+  color: var(--redOrange);
+}
+
+.department {
+  font-size: 12px;
+  padding: 6px;
+  border-radius: 15px;
+  color: white;
+  width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.department-administration {
+  background-color: var(--redOrange);
+}
+
+.department-finance {
+  background-color: var(--orange);
+}
+
+.department-tech {
+  background-color: var(--blue);
+}

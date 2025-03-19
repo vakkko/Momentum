@@ -1,0 +1,74 @@
+.task-info > h2 {
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 100%;
+  color: var(--gray);
+  margin-top: 12px;
+  margin-bottom: 36px;
+}
+
+.task-info > p {
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: 0%;
+}
+
+.task-details h3 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 100%;
+  margin-bottom: 28px;
+}
+
+.status-box,
+.user-info,
+.deadline-box {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+}
+
+.status-box > div,
+.user-icon,
+.deadline-box > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 164px;
+}
+
+.status-box > select {
+  padding: 10px 14px;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 100%;
+  border: 1px solid #ced4da;
+}
+
+.avatar-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-box > img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.user-info {
+  margin: 23px 0;
+}
+
+.user-departament {
+  font-size: 11px;
+  line-height: 100%;
+  color: #474747;
+}
+
+.user-fullname {
+  font-size: 14px;
+  line-height: 150%;
+  color: #0d0f10;
+}
