@@ -4,20 +4,23 @@ import axios from "axios";
 import { useState } from "react";
 import FilterOptions from "./FilterOptions/FilterOptions";
 import { DepContext } from "../../../context/context";
+import ChosenOptions from "./ChosenOptions/ChosenOptions";
 
 export default function FilterSection({
   departments,
-  showDepartments,
-  setShowDepartments,
-  showPriorities,
-  setShowPriorities,
-  showEmployees,
-  setShowEmployess,
-  selectedOptions,
-  handleFilter,
-  handleChange,
+  allTasks,
+  setFilteredTasks,
 }) {
+  const [showDepartments, setShowDepartments] = useState(false);
   const [priorities, setPriorities] = useState([]);
+  const [showPriorities, setShowPriorities] = useState(false);
+  const [showEmployees, setShowEmployess] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState({
+    dep: {},
+    level: {},
+    empl: {},
+  });
+  const [chosenOptions, setChosenOptions] = useState([]);
   const contextData = useContext(DepContext);
   const employees = contextData.employees;
 
@@ -44,6 +47,83 @@ export default function FilterSection({
     setShowEmployess(!showEmployees);
     setShowDepartments(false);
     setShowPriorities(false);
+  };
+
+  const handleFilter = () => {
+    const hasDepartmentFilter = Object.values(selectedOptions.dep).some(
+      Boolean
+    );
+
+    const hasPriorityFilter = Object.values(selectedOptions.level).some(
+      Boolean
+    );
+
+    const hasEmplFilter = Object.values(selectedOptions.empl).some(Boolean);
+
+    const filtered = allTasks.filter((task) => {
+      const matchesDepartment = Object.keys(selectedOptions.dep).some(
+        (key) => selectedOptions.dep[key] && task.department.id === Number(key)
+      );
+
+      const matchesPriority = Object.keys(selectedOptions.level).some(
+        (key) => selectedOptions.level[key] && task.priority.id === Number(key)
+      );
+
+      const mathcesEmpl = Object.keys(selectedOptions.empl).some(
+        (key) => selectedOptions.empl[key] && task.employee.id === Number(key)
+      );
+
+      if (hasDepartmentFilter && hasPriorityFilter && hasEmplFilter) {
+        return matchesDepartment && matchesPriority && mathcesEmpl;
+      } else if (hasDepartmentFilter && hasPriorityFilter) {
+        return matchesDepartment && matchesPriority;
+      } else if (hasDepartmentFilter && hasEmplFilter) {
+        return matchesDepartment && mathcesEmpl;
+      } else if (hasPriorityFilter && hasEmplFilter) {
+        return matchesPriority && mathcesEmpl;
+      } else if (hasDepartmentFilter) {
+        return matchesDepartment;
+      } else if (hasPriorityFilter) {
+        return matchesPriority;
+      } else if (hasEmplFilter) {
+        return mathcesEmpl;
+      }
+
+      return true;
+    });
+    setShowDepartments(false);
+    setShowEmployess(false);
+    setShowPriorities(false);
+    setFilteredTasks(filtered);
+
+    let newChosenArray = [];
+
+    if (Object.values(selectedOptions.dep).length > 0) {
+      newChosenArray = newChosenArray.concat(
+        departments.filter((department) => selectedOptions.dep[department.id])
+      );
+    }
+    if (Object.values(selectedOptions.level).length > 0) {
+      newChosenArray = newChosenArray.concat(
+        priorities.filter((prior) => selectedOptions.level[prior.id])
+      );
+    }
+    if (Object.values(selectedOptions.empl).length > 0) {
+      newChosenArray = newChosenArray.concat(
+        employees.filter((employ) => selectedOptions.empl[employ.id])
+      );
+    }
+    setChosenOptions(newChosenArray);
+  };
+
+  const handleChange = (category, id) => {
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [id]: !prev[category][id],
+      },
+    }));
   };
 
   return (
@@ -101,6 +181,8 @@ export default function FilterSection({
           handleFilter={handleFilter}
         />
       )}
+
+      <ChosenOptions chosenOptions={chosenOptions} />
     </div>
   );
 }
