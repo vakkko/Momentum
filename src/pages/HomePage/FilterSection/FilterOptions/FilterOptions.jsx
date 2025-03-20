@@ -12,13 +12,16 @@ export default function FilterOptions({
       <div>
         {options.map((opt) => (
           <label key={opt.id} className={`checkbox`}>
-            {opt.name}
+            {opt.name} {opt.surname && opt.surname}
             <input
               checked={!!selectedOptions[opt.id]}
               onChange={() => handleChange(opt.id)}
               type="checkbox"
             />
             <span className={`checkmark ${dep && "checkmark-dep"}`}></span>
+            {opt.avatar && (
+              <img className="avatar" src={opt.avatar} alt="avatar" />
+            )}
           </label>
         ))}
       </div>

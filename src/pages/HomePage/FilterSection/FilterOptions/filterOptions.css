@@ -35,9 +35,11 @@
 }
 
 .checkbox {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   position: relative;
-  padding-left: 35px;
+  padding-left: 29px;
   margin-bottom: 23.5px;
   cursor: pointer;
   font-size: 16px;
@@ -95,4 +97,10 @@
   border: 1px solid var(--black);
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
 }
