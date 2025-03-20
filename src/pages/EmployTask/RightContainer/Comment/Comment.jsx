@@ -1,13 +1,12 @@
 import "./comment.css";
 import CommentBlock from "../CommentBlock/CommentBlock";
-
 export default function Comment({
   allComment,
   reply,
   setRender,
   taskId,
-  showReply,
-  setShowReply,
+  showReply = {},
+  toggleReplyVisibility,
 }) {
   return (
     <div className="all-comment">
@@ -19,14 +18,14 @@ export default function Comment({
               <span>{comment.author_nickname}</span>
               <p>{comment.text}</p>
               {reply && (
-                <button onClick={() => setShowReply(!showReply)}>
+                <button onClick={() => toggleReplyVisibility(comment.id)}>
                   <img src="./assets/left-reply.svg" alt="reply icon" />
                   უპასუხე
                 </button>
               )}
             </div>
           </div>
-          {showReply && (
+          {showReply[comment.id] && comment.sub_comments.length === 0 && (
             <CommentBlock
               parentId={comment.id}
               setRender={setRender}

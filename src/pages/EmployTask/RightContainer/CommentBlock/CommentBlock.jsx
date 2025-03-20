@@ -2,12 +2,7 @@ import { useState } from "react";
 import "./commentBlock.css";
 import axios from "axios";
 
-export default function CommentBlock({
-  taskId,
-  setRender,
-  parentId,
-  setShowReply,
-}) {
+export default function CommentBlock({ taskId, setRender, parentId }) {
   const [comment, setComment] = useState("");
 
   const handleChange = (e) => {
@@ -35,20 +30,20 @@ export default function CommentBlock({
       );
       setComment("");
       setRender((prev) => prev + 1);
-      setShowReply(false);
     } catch (error) {
       console.error(error);
     }
   };
-
   return (
-    <div className="comment-textarea">
-      <textarea
-        value={comment}
-        onChange={handleChange}
-        placeholder="დაწერე კომენტარი"
-      />
-      <button onClick={handleClick}>დააკომენტარე</button>
-    </div>
+    <>
+      <div className="comment-textarea">
+        <textarea
+          value={comment}
+          onChange={handleChange}
+          placeholder="დაწერე კომენტარი"
+        />
+        <button onClick={handleClick}>დააკომენტარე</button>
+      </div>
+    </>
   );
 }

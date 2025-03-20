@@ -7,7 +7,7 @@ import Comment from "./Comment/Comment";
 export default function RightContainer({ taskId }) {
   const [allComment, setAllComment] = useState([]);
   const [render, setRender] = useState();
-  const [showReply, setShowReply] = useState(false);
+  const [showReply, setShowReply] = useState({});
 
   useEffect(() => {
     const fetchComponent = async () => {
@@ -32,18 +32,20 @@ export default function RightContainer({ taskId }) {
     fetchComponent();
   }, [taskId, render]);
 
+  const toggleReplyVisibility = (commentId) => {
+    setShowReply((prevState) => ({
+      ...prevState,
+      [commentId]: !prevState[commentId],
+    }));
+  };
+
   const subCommentAmount = allComment.reduce((total, comment) => {
     return total + comment.sub_comments.length;
   }, 0);
 
   return (
     <div className="comments-container">
-      <CommentBlock
-        setShowReply={setShowReply}
-        parentId={false}
-        setRender={setRender}
-        taskId={taskId}
-      />
+      <CommentBlock parentId={false} setRender={setRender} taskId={taskId} />
       {allComment && (
         <div className="comments-list">
           <div className="comment-heading">
@@ -56,7 +58,7 @@ export default function RightContainer({ taskId }) {
             allComment={allComment}
             reply
             showReply={showReply}
-            setShowReply={setShowReply}
+            toggleReplyVisibility={toggleReplyVisibility}
           />
         </div>
       )}

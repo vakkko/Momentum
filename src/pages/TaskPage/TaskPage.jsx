@@ -6,6 +6,7 @@ import axios from "axios";
 import WorkProgress from "./WorkProgress/WorkProgress";
 import RespEmploy from "./RespEmploy/RespEmploy";
 import ErrorMsgs from "../../components/AddEmploy/NameInput/ErrorMsgs/ErrorMsgs";
+import { useNavigate } from "react-router";
 
 export default function TaskPage() {
   const [selectDepartment, setSelectedDepartment] = useState(
@@ -23,17 +24,20 @@ export default function TaskPage() {
   const contextData = useContext(DepContext);
   const departments = contextData.departments;
   const validText = text.trim().split(/\s+/);
+  const navigate = useNavigate();
 
   const handleSelectedDep = (e) => {
     setSelectedDepartment(e.target.value);
   };
 
   const handleTitleChange = (e) => {
-    setTitle(e.target.value);
+    const value = e.target.value;
+    setTitle(value);
   };
 
   const handleTextChange = (e) => {
-    setText(e.target.value);
+    const value = e.target.value;
+    setText(value);
   };
 
   useEffect(() => {
@@ -116,7 +120,7 @@ export default function TaskPage() {
           setSelectedDepartment("");
           setSelected(average);
           setRespEmpl(null);
-
+          navigate("/");
           sessionStorage.clear();
         }
       } catch (error) {
