@@ -21,6 +21,7 @@ export default function FilterSection({
     empl: {},
   });
   const [chosenOptions, setChosenOptions] = useState([]);
+  const [render, setRender] = useState();
   const contextData = useContext(DepContext);
   const employees = contextData.employees;
 
@@ -100,19 +101,28 @@ export default function FilterSection({
 
     if (Object.values(selectedOptions.dep).length > 0) {
       newChosenArray = newChosenArray.concat(
-        departments.filter((department) => selectedOptions.dep[department.id])
+        departments
+          .filter((department) => selectedOptions.dep[department.id])
+          .map((dep) => ({ ...dep, category: "dep" }))
       );
     }
+
     if (Object.values(selectedOptions.level).length > 0) {
       newChosenArray = newChosenArray.concat(
-        priorities.filter((prior) => selectedOptions.level[prior.id])
+        priorities
+          .filter((prior) => selectedOptions.level[prior.id])
+          .map((prior) => ({ ...prior, category: "level" }))
       );
     }
+
     if (Object.values(selectedOptions.empl).length > 0) {
       newChosenArray = newChosenArray.concat(
-        employees.filter((employ) => selectedOptions.empl[employ.id])
+        employees
+          .filter((employ) => selectedOptions.empl[employ.id])
+          .map((empl) => ({ ...empl, category: "empl" }))
       );
     }
+
     setChosenOptions(newChosenArray);
   };
 
@@ -125,6 +135,25 @@ export default function FilterSection({
       },
     }));
   };
+
+  const handleRemove = (category, id) => {
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [id]: false,
+      },
+    }));
+
+    setChosenOptions((prev) =>
+      prev.filter((option) => option.id !== id || option.category !== category)
+    );
+    setRender((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    handleFilter();
+  }, [render]);
 
   return (
     <div className="filter-section">
@@ -182,7 +211,11 @@ export default function FilterSection({
         />
       )}
 
-      <ChosenOptions chosenOptions={chosenOptions} />
+      <ChosenOptions
+        setChosenOptions={setChosenOptions}
+        chosenOptions={chosenOptions}
+        handleRemove={handleRemove}
+      />
     </div>
   );
 }

@@ -49,7 +49,7 @@
 }
 
 .department-administration {
-  background-color: var(--redOrange);
+  background-color: var(--pink);
 }
 
 .department-finance {
@@ -57,5 +57,21 @@
 }
 
 .department-tech {
+  background-color: var(--yellow);
+}
+
+.department-hr {
   background-color: var(--blue);
+}
+
+.department-sale {
+  background-color: var(--lightPurple);
+}
+
+.department-logistic {
+  background-color: var(--green);
+}
+
+.department-media {
+  background-color: var(--gray);
 }

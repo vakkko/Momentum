@@ -19,14 +19,20 @@ export default function StatusPriority({ data }) {
       </div>
       <div
         className={`department ${
-          data.department.id === 1 || data.department.id === 2
+          data.department.id === 1
             ? "department-administration"
-            : data.department.id === 3 ||
-              data.department.id === 4 ||
-              data.department.id === 5
+            : data.department.id === 2
+            ? "department-hr"
+            : data.department.id === 3
             ? "department-finance"
-            : data.department.id === 6 || data.department.id === 7
+            : data.department.id === 4
+            ? "department-sale"
+            : data.department.id === 5
+            ? "department-logistic"
+            : data.department.id === 6
             ? "department-tech"
+            : data.department.id === 7
+            ? "department-media"
             : ""
         }`}
       >
