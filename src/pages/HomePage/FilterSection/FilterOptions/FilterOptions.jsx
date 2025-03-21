@@ -25,7 +25,7 @@ export default function FilterOptions({
           </label>
         ))}
       </div>
-      <button onClick={handleFilter} className="btn-choose">
+      <button onClick={() => handleFilter()} className="btn-choose">
         არჩევა
       </button>
     </div>

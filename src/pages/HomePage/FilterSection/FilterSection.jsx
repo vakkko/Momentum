@@ -17,11 +17,13 @@ export default function FilterSection({
   const [showEmployees, setShowEmployess] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState({
     dep: {},
-    level: {},
+    prior: {},
     empl: {},
   });
-  const [chosenOptions, setChosenOptions] = useState([]);
-  const [render, setRender] = useState();
+
+  const [chosenDep, setChosenDep] = useState([]);
+  const [chosenPrior, setChosenPrior] = useState([]);
+  const [chosenEmpl, setChosenEmpl] = useState([]);
   const contextData = useContext(DepContext);
   const employees = contextData.employees;
 
@@ -50,110 +52,113 @@ export default function FilterSection({
     setShowPriorities(false);
   };
 
+  const [filterTriggered, setFilterTriggered] = useState(false);
+
   const handleFilter = () => {
-    const hasDepartmentFilter = Object.values(selectedOptions.dep).some(
-      Boolean
-    );
-
-    const hasPriorityFilter = Object.values(selectedOptions.level).some(
-      Boolean
-    );
-
-    const hasEmplFilter = Object.values(selectedOptions.empl).some(Boolean);
-
-    const filtered = allTasks.filter((task) => {
-      const matchesDepartment = Object.keys(selectedOptions.dep).some(
-        (key) => selectedOptions.dep[key] && task.department.id === Number(key)
-      );
-
-      const matchesPriority = Object.keys(selectedOptions.level).some(
-        (key) => selectedOptions.level[key] && task.priority.id === Number(key)
-      );
-
-      const mathcesEmpl = Object.keys(selectedOptions.empl).some(
-        (key) => selectedOptions.empl[key] && task.employee.id === Number(key)
-      );
-
-      if (hasDepartmentFilter && hasPriorityFilter && hasEmplFilter) {
-        return matchesDepartment && matchesPriority && mathcesEmpl;
-      } else if (hasDepartmentFilter && hasPriorityFilter) {
-        return matchesDepartment && matchesPriority;
-      } else if (hasDepartmentFilter && hasEmplFilter) {
-        return matchesDepartment && mathcesEmpl;
-      } else if (hasPriorityFilter && hasEmplFilter) {
-        return matchesPriority && mathcesEmpl;
-      } else if (hasDepartmentFilter) {
-        return matchesDepartment;
-      } else if (hasPriorityFilter) {
-        return matchesPriority;
-      } else if (hasEmplFilter) {
-        return mathcesEmpl;
-      }
-
-      return true;
-    });
-    setShowDepartments(false);
-    setShowEmployess(false);
-    setShowPriorities(false);
-    setFilteredTasks(filtered);
-
-    let newChosenArray = [];
-
-    if (Object.values(selectedOptions.dep).length > 0) {
-      newChosenArray = newChosenArray.concat(
-        departments
-          .filter((department) => selectedOptions.dep[department.id])
-          .map((dep) => ({ ...dep, category: "dep" }))
-      );
-    }
-
-    if (Object.values(selectedOptions.level).length > 0) {
-      newChosenArray = newChosenArray.concat(
-        priorities
-          .filter((prior) => selectedOptions.level[prior.id])
-          .map((prior) => ({ ...prior, category: "level" }))
-      );
-    }
-
-    if (Object.values(selectedOptions.empl).length > 0) {
-      newChosenArray = newChosenArray.concat(
-        employees
-          .filter((employ) => selectedOptions.empl[employ.id])
-          .map((empl) => ({ ...empl, category: "empl" }))
-      );
-    }
-
-    setChosenOptions(newChosenArray);
-  };
-
-  const handleChange = (category, id) => {
-    setSelectedOptions((prev) => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [id]: !prev[category][id],
-      },
-    }));
-  };
-
-  const handleRemove = (category, id) => {
-    setSelectedOptions((prev) => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [id]: false,
-      },
-    }));
-
-    setChosenOptions((prev) =>
-      prev.filter((option) => option.id !== id || option.category !== category)
-    );
-    setRender((prev) => prev + 1);
+    setFilterTriggered(true);
   };
 
   useEffect(() => {
+    if (!filterTriggered) return;
+
+    const hasDepartmentFilter = Object.keys(selectedOptions.dep).some(
+      (key) => selectedOptions.dep[key]
+    );
+    const hasPriorityFilter = Object.keys(selectedOptions.prior).some(
+      (key) => selectedOptions.prior[key]
+    );
+    const hasEmplFilter = Object.keys(selectedOptions.empl).some(
+      (key) => selectedOptions.empl[key]
+    );
+
+    const filtered = allTasks.filter((task) => {
+      const matchesDepartment = hasDepartmentFilter
+        ? selectedOptions.dep[task.department.id] ?? false
+        : true;
+
+      const matchesPriority = hasPriorityFilter
+        ? selectedOptions.prior[task.priority.id] ?? false
+        : true;
+
+      const matchesEmpl = hasEmplFilter
+        ? selectedOptions.empl[task.employee.id] ?? false
+        : true;
+
+      return matchesDepartment && matchesPriority && matchesEmpl;
+    });
+
+    setFilteredTasks(filtered);
+    setShowDepartments(false);
+    setShowEmployess(false);
+    setShowPriorities(false);
+
+    setChosenDep(
+      hasDepartmentFilter
+        ? departments
+            .filter((dep) => selectedOptions.dep[dep.id])
+            .map((dep) => ({ ...dep, category: "dep" }))
+        : []
+    );
+
+    setChosenPrior(
+      hasPriorityFilter
+        ? priorities
+            .filter((prior) => selectedOptions.prior[prior.id])
+            .map((prior) => ({ ...prior, category: "prior" }))
+        : []
+    );
+
+    setChosenEmpl(
+      hasEmplFilter
+        ? employees
+            .filter((empl) => selectedOptions.empl[empl.id])
+            .map((empl) => ({ ...empl, category: "empl" }))
+        : []
+    );
+
+    setFilterTriggered(false);
+  }, [filterTriggered]);
+
+  const handleChange = (category, id) => {
+    setSelectedOptions((prev) => {
+      return {
+        ...prev,
+        [category]: {
+          ...prev[category],
+          [id]: !prev[category][id],
+        },
+      };
+    });
+  };
+
+  const handleClearFilters = () => {
+    setSelectedOptions({
+      dep: {},
+      prior: {},
+      empl: {},
+    });
+    setChosenDep([]);
+    setChosenPrior([]);
+    setChosenEmpl([]);
+    setFilteredTasks(allTasks);
+  };
+
+  const handleRemove = (category, id) => {
+    if (category === "dep") {
+      setChosenDep((prev) => prev.filter((option) => option.id !== id));
+    } else if (category === "prior") {
+      setChosenPrior((prev) => prev.filter((option) => option.id !== id));
+    } else if (category === "empl") {
+      setChosenEmpl((prev) => prev.filter((option) => option.id !== id));
+    }
+    setSelectedOptions((prev) => {
+      const updatedCategory = { ...prev[category] };
+      delete updatedCategory[id];
+      return { ...prev, [category]: updatedCategory };
+    });
+
     handleFilter();
-  }, [render]);
+  };
 
   return (
     <div className="filter-section">
@@ -196,8 +201,8 @@ export default function FilterSection({
       )}
       {showPriorities && (
         <FilterOptions
-          selectedOptions={selectedOptions.level}
-          handleChange={(id) => handleChange("level", id)}
+          selectedOptions={selectedOptions.prior}
+          handleChange={(id) => handleChange("prior", id)}
           options={priorities}
           handleFilter={handleFilter}
         />
@@ -210,12 +215,34 @@ export default function FilterSection({
           handleFilter={handleFilter}
         />
       )}
-
-      <ChosenOptions
-        setChosenOptions={setChosenOptions}
-        chosenOptions={chosenOptions}
-        handleRemove={handleRemove}
-      />
+      {(chosenEmpl.length > 0 ||
+        chosenDep.length > 0 ||
+        chosenPrior.length > 0) && (
+        <div className="filter-parameters">
+          {chosenDep && (
+            <ChosenOptions
+              chosenOption={chosenDep}
+              setChosenOption={setChosenDep}
+              handleRemove={handleRemove}
+            />
+          )}
+          {chosenPrior && (
+            <ChosenOptions
+              chosenOption={chosenPrior}
+              setChosenOption={setChosenPrior}
+              handleRemove={handleRemove}
+            />
+          )}
+          {chosenEmpl && (
+            <ChosenOptions
+              chosenOption={chosenEmpl}
+              setChosenOption={setChosenEmpl}
+              handleRemove={handleRemove}
+            />
+          )}
+          <button onClick={handleClearFilters}>გასუფთავება</button>
+        </div>
+      )}
     </div>
   );
 }
