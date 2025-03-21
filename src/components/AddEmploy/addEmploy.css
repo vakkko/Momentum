@@ -28,11 +28,16 @@
   padding: 40px 50px 60px;
   display: flex;
   flex-direction: column;
-  gap: 37px;
 }
 
 .modal-content > h2 {
   text-align: center;
+  margin-top: 37px;
+  margin-bottom: 45px;
+}
+
+.button-group {
+  margin-top: 25px;
 }
 
 .btn-close,

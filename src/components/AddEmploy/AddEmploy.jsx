@@ -47,6 +47,11 @@ export default function AddEmploy({ setShowModal, departments }) {
     setSelectedDepartment(e.target.value);
   };
 
+  const handleRemoveFile = () => {
+    setPreview("");
+    setFile(null);
+  };
+
   const handleSubmit = async () => {
     if (
       name.length >= 2 &&
@@ -62,6 +67,8 @@ export default function AddEmploy({ setShowModal, departments }) {
       formData.append("avatar", file);
       formData.append("department_id", selectedDepartment);
 
+      const token = "9e6c1b92-a397-450d-8338-35b007457477";
+
       try {
         const response = await axios.post(
           "https://momentum.redberryinternship.ge/api/employees",
@@ -69,7 +76,7 @@ export default function AddEmploy({ setShowModal, departments }) {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer 9e6c1b92-a397-450d-8338-35b007457477`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -78,7 +85,7 @@ export default function AddEmploy({ setShowModal, departments }) {
             "https://momentum.redberryinternship.ge/api/employees",
             {
               headers: {
-                Authorization: `Bearer 9e6c1b92-a397-450d-8338-35b007457477`,
+                Authorization: `Bearer ${token}`,
               },
             }
           );
@@ -143,7 +150,7 @@ export default function AddEmploy({ setShowModal, departments }) {
                     width={200}
                   />
                   <img
-                    onClick={() => setPreview("")}
+                    onClick={handleRemoveFile}
                     className="delete-icon"
                     src="./assets/delete-icon.svg"
                     alt="delete icon"

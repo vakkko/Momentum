@@ -1,4 +1,10 @@
-@import url("https://free.bboxtype.com/embedfonts/?family=FiraGO:400,500,600");
+@font-face {
+  font-family: "FiraGO";
+  src: url("/assets/fonts/Roman/FiraGO-Regular.woff2") format("woff2"),
+    url("/assets/fonts/Roman/FiraGO-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
   --yellow: #f7bc30;

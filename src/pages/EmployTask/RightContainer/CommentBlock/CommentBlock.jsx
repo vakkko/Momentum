@@ -17,6 +17,8 @@ export default function CommentBlock({ taskId, setRender, parentId }) {
       ...(parentId && { parent_id: parentId }),
     };
 
+    const token = "9e6c1b92-a397-450d-8338-35b007457477";
+
     try {
       await axios.post(
         `https://momentum.redberryinternship.ge/api/tasks/${taskId}/comments`,
@@ -24,7 +26,7 @@ export default function CommentBlock({ taskId, setRender, parentId }) {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer 9e6c1b92-a397-450d-8338-35b007457477`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );

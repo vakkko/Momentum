@@ -101,6 +101,8 @@ export default function TaskPage() {
         priority_id: Number(selected.id),
       };
 
+      const token = "9e6c1b92-a397-450d-8338-35b007457477";
+
       try {
         const response = await axios.post(
           "https://momentum.redberryinternship.ge/api/tasks",
@@ -108,7 +110,7 @@ export default function TaskPage() {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer 9e6c1b92-a397-450d-8338-35b007457477`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
